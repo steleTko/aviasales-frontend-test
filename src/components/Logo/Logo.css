@@ -1,0 +1,13 @@
+.wrapper {
+  max-width: 754px;
+  margin: 0 auto;
+}
+.content__logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.content__logo-pic {
+  width: 60px;
+  height: 60px;
+}
