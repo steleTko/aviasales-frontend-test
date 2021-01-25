@@ -1,11 +1,12 @@
 import { 
     FETCH_TICKETS, 
     FILTER_TICKETS,
+    RESET_TICKETS_STATE,
     SORT_CHEAP_TICKETS, 
     SORT_FAST_TICKETS 
 } from '../constants'
 
-const initialState = {
+export const initialState = {
     tickets : [],
 }
 
@@ -21,6 +22,8 @@ export const ticketsReducer = ( state = initialState, action) => {
             return {...state, tickets: action.payload }
         case FILTER_TICKETS:
             return { ...state, tickets: action.payload }
+        case RESET_TICKETS_STATE:
+            return { ...initialState }
         default:
             return state;
     }

@@ -1,25 +1,34 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './Filter.css'
 import './img/Shape.svg'
 import './img/Cursor.svg'
 import { useDispatch } from 'react-redux';
-import { filterTickets } from '../../action';
+import { filterTickets, resetTicketsState } from '../../action';
 
 export default function Filter({ticket}) {
-    const [filTick, setFilTick] = useState({
+    const dispatch = useDispatch();
+    const [filTick] = useState({
         all: true,
         without: false,
         one: false,
         two: false,
         three: false
     })
-
-    const dispatch = useDispatch();
     const filterHandler = (fil) => {
         filTick[fil] = !filTick[fil];
-        setFilTick({ ...ticket }) 
         dispatch(filterTickets(ticket, filTick))
+        if(!filTick[fil] && filTick['all']) {
+            dispatch(resetTicketsState(ticket))
+        }
     }
+
+        // if(filTick['all'] === false) {
+        //     console.log('Все значения лож')
+        //  }
+        //  else { 
+        //      dispatch(resetTicketsState(ticket))
+        //  }
+    
 
     return (<div>
             <div className="filter">

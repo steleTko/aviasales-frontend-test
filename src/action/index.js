@@ -4,8 +4,10 @@ import {
     SHOW_LOADER, 
     SORT_CHEAP_TICKETS, 
     SORT_FAST_TICKETS, 
-    FILTER_TICKETS
+    FILTER_TICKETS,
+    RESET_TICKETS_STATE,
 } from '../constants'
+import { initialState } from '../reducers/ticketsReducer'
 
 
 export function showLoader() {
@@ -28,7 +30,8 @@ export function fetchTickets() {
             let response2 = await fetch(`https://front-test.beta.aviasales.ru/tickets?${Object.keys(data).map(elem =>`${elem}=${data[elem]}`)}`)
             if(response2.status === 200) {
                 let data2 = await response2.json();
-                dispatch({ type: FETCH_TICKETS, payload: data2.tickets })
+                initialState.tickets = data2.tickets
+                dispatch({ type: FETCH_TICKETS, payload: data2.tickets})
                 dispatch(sortCheapTicket(data2.tickets))
             } else {
                 console.log('Error');
@@ -53,19 +56,19 @@ export const sortFastTicket = sort => ({
 export const filterTickets = (filter, fil) => ({
     type: FILTER_TICKETS,
     payload: filter.filter(ticket => {
-        if(Object.keys(fil).every(key => {
-            return fil[key] === false
-        })) {
-            return ticket
-        }
-        if(fil.all) return ticket;
         if(fil.without && ticket.segments[0].stops.length === 0 && ticket.segments[1].stops.length === 0) return true;
         if(fil.one && ticket.segments[0].stops.length === 1 && ticket.segments[1].stops.length === 1) return true;
         if(fil.two && ticket.segments[0].stops.length === 2 && ticket.segments[1].stops.length === 2) return true;
         if(fil.three && ticket.segments[0].stops.length === 3 && ticket.segments[1].stops.length === 3) return true;
-        return false;
+        return false
     })
 })
+
+export const resetTicketsState = (oldState) => {
+    return dispatch => {
+        dispatch({ type: RESET_TICKETS_STATE, payload:oldState })
+    }
+}
 
 
 
