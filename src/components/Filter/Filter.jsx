@@ -22,10 +22,12 @@ export default function Filter({ticket}) {
         if(!filTick[fil] && filTick['all']) {
             dispatch(resetTicketsState(ticket))
         }
+        let div = document.querySelector('.ticket-list');
         if(Object.keys(filTick).every(key => !filTick[key])) {
-            let div = document.querySelector('.ticket-list');
-            let countTicket = ticket.length
-            div.innerHTML = `Найдено ${countTicket} билетов, но не один не соответствует вашему запросу!`
+            div.style.visibility = 'hidden'
+            dispatch(resetTicketsState(ticket))
+        } else {
+            div.style.visibility = 'visible'
         }
     }
     
