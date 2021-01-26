@@ -16,18 +16,18 @@ export default function Filter({ticket}) {
     })
     const filterHandler = (fil) => {
         filTick[fil] = !filTick[fil];
-        dispatch(filterTickets(ticket, filTick))
+        if(filTick['without'] || filTick['one'] || filTick['two'] || filTick['three']) {
+            dispatch(filterTickets(ticket, filTick))
+        }
         if(!filTick[fil] && filTick['all']) {
             dispatch(resetTicketsState(ticket))
         }
+        if(Object.keys(filTick).every(key => !filTick[key])) {
+            let div = document.querySelector('.ticket-list');
+            let countTicket = ticket.length
+            div.innerHTML = `Найдено ${countTicket} билетов, но не один не соответствует вашему запросу!`
+        }
     }
-
-        // if(filTick['all'] === false) {
-        //     console.log('Все значения лож')
-        //  }
-        //  else { 
-        //      dispatch(resetTicketsState(ticket))
-        //  }
     
 
     return (<div>
