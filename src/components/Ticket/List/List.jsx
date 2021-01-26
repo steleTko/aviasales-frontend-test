@@ -7,7 +7,7 @@ export default function List({ticket, loading}) {
     if(loading) {
         return <Loader />
     }
-    ticket = ticketNormalize(ticket)
+    ticket = ticketNormalize(ticket).slice(0, 5);
         return ( <div className='ticket-list'>
                 {ticket.map(({id, price, carrier, segments}) => (
                                    <ul key={id}>
