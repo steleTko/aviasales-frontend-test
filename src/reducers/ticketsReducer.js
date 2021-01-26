@@ -10,8 +10,6 @@ export const initialState = {
     tickets : [],
 }
 
-
-
 export const ticketsReducer = ( state = initialState, action) => {
     switch (action.type) {
         case FETCH_TICKETS:
@@ -27,6 +25,5 @@ export const ticketsReducer = ( state = initialState, action) => {
         default:
             return state;
     }
-    
 }
 

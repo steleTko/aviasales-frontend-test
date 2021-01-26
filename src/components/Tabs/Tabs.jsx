@@ -24,7 +24,6 @@ export default function Tabs({ticket}) {
         }
     }
 
-
         return ( <div>
                     <div className="tabs">
                         <div className="tabs__cheap" onClick={sortCheap}>САМЫЙ ДЕШЕВЫЙ</div>

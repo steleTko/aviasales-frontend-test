@@ -11,7 +11,7 @@ import { fetchTickets } from '../action';
 
 function App() {
     const dispatch = useDispatch();
-    const ticket = useSelector(state => state.tickets.tickets)
+    let ticket = useSelector(state => state.tickets.tickets)
     useEffect(() => {
       dispatch(fetchTickets())
     }, [dispatch])
