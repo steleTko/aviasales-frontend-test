@@ -67,6 +67,7 @@ export const filterTickets = (filter, fil) => ({
 export const resetTicketsState = (oldState) => {
     return dispatch => {
         dispatch({ type: RESET_TICKETS_STATE, payload:oldState })
+        dispatch(sortCheapTicket(initialState.tickets));
     }
 }
 
