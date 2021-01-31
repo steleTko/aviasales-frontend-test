@@ -1,45 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useContext } from "react";
 import "./Filter.css";
 import "./img/Shape.svg";
 import "./img/Cursor.svg";
-import { useDispatch } from "react-redux";
-import { filterTickets, resetTicketsState } from "../../action";
+import { Context } from "../../utils/context";
 
-export default function Filter({ ticket }) {
-  const dispatch = useDispatch();
-  const [filTick] = useState({
-    all: true,
-    without: false,
-    one: false,
-    two: false,
-    three: false,
-  });
-
-  const filterHandler = useCallback(
-    (fil) => {
-      filTick[fil] = !filTick[fil];
-      if (
-        filTick["without"] ||
-        filTick["one"] ||
-        filTick["two"] ||
-        filTick["three"]
-      ) {
-        dispatch(filterTickets(ticket, filTick));
-      }
-      if (!filTick[fil] && filTick["all"]) {
-        dispatch(resetTicketsState(ticket));
-      }
-      const div = document.querySelector(".ticket-list");
-      if (Object.keys(filTick).every((key) => !filTick[key])) {
-        div.style.visibility = "hidden";
-        dispatch(resetTicketsState(ticket));
-      } else {
-        div.style.visibility = "visible";
-      }
-    },
-    [ticket, dispatch, filTick]
-  );
-
+export default function Filter() {
+  const { filTick, filterHandler } = useContext(Context);
   return (
     <div>
       <div className="filter">
